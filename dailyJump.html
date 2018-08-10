@@ -1,0 +1,137 @@
+<style>
+    
+  input[type="checkbox"].ck{
+      min-width: 16px;
+      height: 16px;
+
+  }
+</style>
+<div >
+    <div class="page-content table-bg">
+      <div class="page-header header-icon">
+            <h1>
+                日清
+                <small>
+                <i class="icon-double-angle-right"></i>
+            项目信息
+            </small>
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div>
+                    <div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline no-footer">
+                        <div class="row table-bg">
+                            <div class="col-xs-12 col-sm-8"style="padding-left:0px;">
+                                <div class="dt-buttons btn-overlap btn-group">
+                                    <button type="button" class="btn  btn-success" style="background-color:  #EFF3F8;border-radius: 5px!important;" ng-disabled="isdisabled " ng-click="selectData(arr)">
+                                    <span class="icon-zoom-in bigger-100" style="top: 10px;"></span>
+                                    确定
+                                    
+                                    </button>
+                                    <button type="button" class="btn btn-success" style="background-color:  #393939!important;border-radius: 5px!important;" ng-click="close()">
+                                    <span class="icon-remove" style="top: 10px;"></span>
+                                    取消
+                                    
+                                </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-2">
+                            	<select name="" id="" ng-model='headers' ng-options='item.col as item.name for item in headerInfos'></select>
+                            </div>
+                              <div class="col-xs-12 col-sm-2 inputfr">
+                                <div id="nav-search">
+                                    <form class="form-search">
+                                        <span  class="input-icon">
+                                            <input type="text" ng-model="key"  class="nav-search-input" placeholder="请输入关键字" id="nav-search-input">
+                                            <i ng-click='searchBut()' class="icon-search nav-search-icon"></i>
+                                        </span>
+                                    </form>
+                                </div>
+
+                         </div>
+                        </div>
+                        <div class="table-header">
+                            项目信息
+                            </div>
+                        <div style="overflow-x:scroll;padding:0px;" class="col-xs-12 table-list" >
+                            
+                            <table id="dynamic-table" style="width: 100%;" class="table text-nowrap table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dynamic-table_info">
+                                <thead>
+                                    <tr role="row">
+                                        <!--<td></td>-->
+                                          <th class="center sorting_disabled" rowspan="1" colspan="1" aria-label="">
+                                            <label class="pos-rel">
+                                               
+                                                <span class="lbl"> </span>
+                                            </label>
+                                        </th>
+                                        <th enter data-sort="{{order}}" ng-show="headerInfo.isHide" ng-repeat="headerInfo in headerInfos track by $index" ng-click=" toggleSort($index)" class="sorting" tabindex="0">
+                                            {{headerInfo.name}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!--<tr role="row" ng-class-odd="'odd'" ng-class-even="'even'" ng-dblclick="selectData(item)" ng-click="ck(chkItem[item.EnterpriseID]==undefind?false:chkItem[item.EnterpriseID], item, item.EnterpriseID)" ng-class="{'selected' : checks || chkItem[item.EnterpriseID]}" ng-repeat="item in datas |myFilter: key |orderBy: order |filter:true">
+                                      
+                                 <td class="center">
+                                        <label class="pos-rel">
+                                        <input type="checkbox" class="ace ace-checkbox-2" ng-checked="chkItem[item.EnterpriseID]"  style="width: 13px;height: 13px;">
+                                        <span class="lbl"> </span>
+                                    </label>
+                                    </td>-->
+                                       <tr role="row" ng-class-odd="'odd'" ng-class-even="'even'" ng-dblclick="selectData(item)" ng-click="ck(item)" ng-class="{'selected':item.checked}"
+                                        ng-repeat="item in datas|orderBy: order">
+                                        <!--<td ng-bind="item.ClassShort"></td>
+                                        分页之后当前页选中的数据在下一页不被选中修改将$index改为item.ID即可-->
+                                        <td class="center">
+                                            <label class="pos-rel">
+                                        <input type="checkbox" class="ace ace-checkbox-2" ng-checked="item.checked" style="width: 13px;height: 13px;">
+                                        <span class="lbl"> </span>
+                                    </label>
+                                        </td>
+                                 
+                                  <td ng-bind="item.ProjectCode" ng-class= "{'strLeft':headerInfos[0].dataType=='str','numRight':headerInfos[0].dataType == 'num'}"></td>
+                                        <td ng-bind="item.ProjectName" ng-class= "{'strLeft':headerInfos[0].dataType=='str','numRight':headerInfos[0].dataType == 'num'}"></td>
+                                        <td ng-bind="item.ProjectStatus" ng-class= "{'strLeft':headerInfos[0].dataType=='str','numRight':headerInfos[0].dataType == 'num'}"></td>
+                                 
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <div class="row">
+                        <div class=" col-xs-offset-4  col-xs-8">
+                            <tm-pagination conf="paginationConf"></tm-pagination>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" ng-show="delVal" style=" width: 300px;  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%)">
+                <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                    <span class="ui-dialog-title">
+                                            
+                                            <h4 style="color:#0271BC"><i class="icon-warning-sign red"></i><strong> {{modal.title}}</strong></h4>
+                                           
+                                        </span>
+                    <a ng-click="delVal=!delVal" class="ui-button  ui-corner-all ui-button-icon-only ui-dialog-titlebar-close">
+                                        </a>
+                </div>
+                <div id="dialog-confirm" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 28px; max-height: none; height: auto;">
+                    <div class="alert alert-info bigger-110">
+                        {{modal.msg}}
+                    </div>
+
+                </div>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <div class="ui-dialog-buttonset">
+                        <button type="button" class="btn btn-xs ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" ng-click="remove(arr)"><span class="ui-button-text"><i class="icon-ok bigger-110"></i>&nbsp;确定 </span></button>
+                        <button type="button" class="btn btn-danger btn-xs ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" ng-click="delVal=!delVal"><span class="ui-button-text"><i class="icon-remove bigger-110"></i>&nbsp; 取消</span></button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

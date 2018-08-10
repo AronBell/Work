@@ -1,0 +1,149 @@
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+           <small>
+            日清
+            <i class="icon-angle-right"></i>
+            </small>
+            <span style="color:#4c83e5;font-size: 15px;">
+            日清详情页
+            </span>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div>
+                <infomodal></infomodal>
+                <div class="panel" style="background-color: #eff3f8">
+                    <div class="panel-body">
+                        <form class="form-horizontal" id="myForm" name="signup_form" novalidate ng-submit="signupForm()">
+                            <div class="row" style="border-bottom: 1px dotted #E2E2E2;padding:0;">
+                                <ul class="list-inline clearfix text-left col-sm-6">
+                                    <div class="dt-buttons btn-overlap btn-group">
+                                        <button type="submit" ng-disabled="signup_form.$invalid" class="btn btn-success " style="border-radius: 5px!important;">
+                                            <span class="icon-ok  bigger-100" style="top: 10px;"> 保存</span>
+                                        </button>
+                                        <button type="button" ng-click="refresh($event)" data-text="r" class="btn" style="border-radius: 5px!important;">
+                                            <span class="icon-undo  bigger-100" style="top: 10px;"> 重置</span>
+                                        </button>
+                                        <button type="button" ng-click="refresh($event)" data-text="c" class="btn btn-success" style="border-radius: 5px!important;background-color:  #393939!important;">
+                                            <span class="icon-remove bigger-100" style="top: 10px;"> 关闭</span>
+                                        </button>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="row" style="padding:0; margin-top: 5px;">
+                                <div class="col-sm-12">
+                                    <div class="widget-box">
+                                        <div class="widget-header">
+                                            <h4>日清</h4>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <div class="form-group" style="height:50px;">
+                                                    <label class="col-sm-2 control-label  no-padding-right">项目编号</label>
+                                                    <div class="col-sm-4 col-xs-12">
+															<div class="input-group">
+																<input type="text" disabled class="form-control col-xs-4 col-sm-5" ng-model="list.APMOProjectCode" name="ProductShort">
+																<span class="input-group-btn">
+	                                                                    <a ng-click='ac()' class="btn btn-info btn-sm ant-btn" ng-href="#!/system/dailyReport/list/single">
+	                                                                       <i class=" icon-external-link  bigger-110 icon-only"></i>
+	                                                                    </a>
+	                                                               </span>
+																<span class="input-group-btn">
+	                                                                    <button class="btn btn-danger btn-sm ant-btn" type="button" ng-click="deleteValue();" >
+	                                                                       <i class=" icon-remove  bigger-110 icon-only"></i>
+	                                                                    </button>
+	                                                               </span>
+															</div>
+														</div>
+                                                    
+                                                    <label class="col-sm-2 control-label  no-padding-right">项目名称</label>
+                                                    <div class="col-sm-4 ">
+                                                    	<input type="text" disabled name="SVDesc" ng-model="list.APMOProjectName" required  placeholder="必填项"   ensure-unique="SVDesc" ensure-name="{{list.SVDesc}}" ensure-id="{{id}}"
+                                                            ensure-url="{{descurl}}"  ng-click= 'asdasd()' class="form-control"
+                                                            form-validated>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="form-group" style="height:50px;">
+                                                	<label class="col-sm-2 control-label no-padding-right">开始时间</label>
+                                                  
+                                                    <div class="col-sm-4">
+                                                    	<input class="date-timepicker1 form-control LastMaintenanceDate" ng-click="begin()" type="text" name="EffectiveDate" ng-model="list.StartTime"
+                                                        ng-blur="ShortBlur()" readonly required placeholder="必填项" class="form-control"
+                                                        form-validated>
+                                                        <span class="formspan1" ng-style="formspan1" ng-if="signup_form.SVCode.$error.required && signup_form.SVCode.$touched">请填写此字段内容</span>
+                                                    </div>
+                                                    
+                                                 	<label class="col-sm-2 control-label  no-padding-right">结束时间</label>
+                                                  	<div class="col-sm-4">
+                                                        <input class="date-timepicker2 form-control LastMaintenanceDate" ng-click="begin()" type="text" name="EffectiveDate" ng-model="list.EndTime"
+                                                        ng-blur="ShortBlur()" readonly required placeholder="必填项" class="form-control"
+                                                        form-validated>
+                                                        <span class="formspan1" ng-style="formspan1" ng-if="signup_form.SVDesc.$error.required && signup_form.SVDesc.$touched">请填写此字段内容</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" style="height:200px;">
+                                                    <label class="col-sm-2 control-label no-padding-right">实际工作</label>
+                                                    <div class="col-sm-4">
+                                                        <textarea type="text" style='height: 200px' name="SVDescExtended" ng-model="list.Explain"  ng-maxlength="2000"  class="form-control" form-validated></textarea>
+                                                        <span class="formspan1" ng-style="formspan1" ng-if="signup_form.SVDescExtended.$error.maxlength">此字段的长度在1-2000以内</span>
+
+                                                    </div>
+                                                    <label class="col-sm-2 control-label  no-padding-right">所遇问题</label>
+                                                    <div class="col-sm-4 ">
+                                                        <textarea type="text" style='height: 200px' name="SVDescExtended" ng-model="list.Problem"  ng-maxlength="2000"  class="form-control" form-validated></textarea>
+                                                        <span class="formspan1" ng-style="formspan1" ng-if="signup_form.SVDescExtended.$error.maxlength">此字段的长度在1-2000以内</span>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" ng-show="IsCancel"
+                                    style=" width: 300px;  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%)">
+                                    <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                                        <span class="ui-dialog-title">
+                                            
+                                            <h4 style="color:#0271BC"><i class="icon-warning-sign red"></i><strong> {{modal.title}}</strong></h4>
+                                           
+                                        </span>
+                                        <a ng-click="IsCancel=!IsCancel" class="ui-button  ui-corner-all ui-button-icon-only ui-dialog-titlebar-close">
+                                        </a>
+                                    </div>
+                                    <div id="dialog-confirm" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 28px; max-height: none; height: auto;">
+                                        <div class="alert alert-info bigger-110">
+                                            {{modal.msg}}
+                                        </div>
+
+                                    </div>
+                                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                                        <div class="ui-dialog-buttonset">
+                                            <button type="button" class="btn btn-xs ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" ng-click="ok($event)"><span class="ui-button-text"><i class="icon-ok bigger-110"></i>&nbsp;确定 </span></button>
+                                            <button type="button" class="btn btn-danger btn-xs ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                                                ng-click="IsCancel=!IsCancel"><span class="ui-button-text"><i class="icon-remove bigger-110"></i>&nbsp; 取消</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="myModalpf.html">
+    <div class="modal-header" style="background-color: rgba(45, 172, 209, 0.85); color: #fff;">
+        <h3 class="modal-title" id="modal-title">刷新</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        {{title}}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+    </div>
+</script>
